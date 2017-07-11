@@ -67,6 +67,8 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		 *
 		 * $param string $importer
 		 */
+		error_log(print_r(get_importers(), true));
+		error_log(print_r($importer, true)); error_log(__LINE__);
 		do_action( 'jetpack_sync_import_end', $importer );
 		$this->import_end = true;
 	}
@@ -91,7 +93,8 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		if ( 'unknown' === $importer && $this->is_importer( $backtrace, 'WP_Import' ) ) {
 			$importer = 'wordpress';
 		}
-
+		error_log(print_r(get_importers(), true));
+		error_log(print_r($importer, true)); error_log(__LINE__);
 		/** This filter is already documented in sync/class.jetpack-sync-module-posts.php */
 		do_action( 'jetpack_sync_import_end', $importer );
 	}
