@@ -60,6 +60,12 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		if ( $this->import_end ) {
 			return;
 		}
+
+		//Identify importer
+		$importers = get_importers();
+		$importer_name = isset( $importers[ $importer ] ) ? $importers[ $importer ][0] : 'Unknown Importer';
+
+
 		/**
 		 * Sync Event that tells that the import is finished
 		 *
@@ -67,7 +73,7 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		 *
 		 * $param string $importer
 		 */
-		do_action( 'jetpack_sync_import_end', $importer );
+		do_action( 'jetpack_sync_import_end', $importer, $importer_name );
 		$this->import_end = true;
 	}
 
@@ -91,12 +97,14 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		if ( 'unknown' === $importer && $this->is_importer( $backtrace, 'WP_Import' ) ) {
 			$importer = 'wordpress';
 		}
-		$importers = get_importers(); error_log("in import end"); error_log(print_r($importers, true));
+
+		//Identify importer
+		$importers = get_importers();
+		$importer_name = isset( $importers[ $importer ] ) ? $importers[ $importer ][0] : 'Unknown Importer';
+
 		/** This filter is already documented in sync/class.jetpack-sync-module-posts.php */
-		do_action( 'jetpack_sync_import_end', $importer );
+		do_action( 'jetpack_sync_import_end', $importer, $importer_name );
 	}
-
-
 
 	private function is_importer( $backtrace, $class_name ) {
 		foreach ( $backtrace as $trace ) {
@@ -108,16 +116,6 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		return false;
 	}
 
-	public function expand_importers( $args ) {
-		$key = $args[0];
-		$importers = get_importers();
-error_log("KEY: " . $key);
-error_log(print_r($importers, true));
-		$importer_name = isset( $importers[ $key ] ) ? $importers[ $key ][0] : 'Unknown Importer';
-
-		return array( $args[0], $importer_name );
-	}
-
 	public function init_full_sync_listeners( $callable ) {
 		add_action( 'jetpack_full_sync_posts', $callable ); // also sends post meta
 	}
@@ -127,8 +125,6 @@ error_log(print_r($importers, true));
 
 		// full sync
 		add_filter( 'jetpack_sync_before_send_jetpack_full_sync_posts', array( $this, 'expand_post_ids' ) );
-
-		add_filter( 'jetpack_sync_before_send_jetpack_sync_import_end', array( $this, 'expand_importers' ) );
 	}
 
 	public function enqueue_full_sync_actions( $config, $max_items_to_enqueue, $state ) {
