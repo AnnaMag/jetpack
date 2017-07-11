@@ -110,7 +110,8 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 	public function expand_importers( $args ) {
 		$key = $args[0];
 		$importers = get_importers();
-
+error_log("KEY: " . $key);
+error_log(print_r($importers, true));
 		$importer_name = isset( $importers[ $key ] ) ? $importers[ $key ][0] : 'Unknown Importer';
 
 		return array( $args[0], $importer_name );
