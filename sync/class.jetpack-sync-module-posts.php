@@ -91,6 +91,7 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		if ( 'unknown' === $importer && $this->is_importer( $backtrace, 'WP_Import' ) ) {
 			$importer = 'wordpress';
 		}
+		$importers = get_importers(); error_log("in import end"); error_log(print_r($importers, true));
 		/** This filter is already documented in sync/class.jetpack-sync-module-posts.php */
 		do_action( 'jetpack_sync_import_end', $importer );
 	}
