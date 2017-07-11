@@ -46,7 +46,7 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		$this->init_meta_whitelist_handler( 'post', array( $this, 'filter_meta' ) );
 
 		add_action( 'export_wp', $callable );
-		add_action( 'jetpack_sync_import_end', $callable );
+		add_action( 'jetpack_sync_import_end', $callable, 10, 2 );
 
 		// Movable type, RSS, Livejournal
 		add_action( 'import_done', array( $this, 'sync_import_done' ) );
