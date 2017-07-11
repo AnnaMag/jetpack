@@ -126,7 +126,7 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		// full sync
 		add_filter( 'jetpack_sync_before_send_jetpack_full_sync_posts', array( $this, 'expand_post_ids' ) );
 
-		add_filter( 'jetpack_sync_import_end', array( $this, 'expand_importers' ) );
+		add_filter( 'jetpack_sync_before_send_jetpack_sync_import_end', array( $this, 'expand_importers' ) );
 	}
 
 	public function enqueue_full_sync_actions( $config, $max_items_to_enqueue, $state ) {
