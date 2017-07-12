@@ -65,7 +65,6 @@ class Jetpack_Sync_Module_Posts extends Jetpack_Sync_Module {
 		$importers = get_importers();
 		$importer_name = isset( $importers[ $importer ] ) ? $importers[ $importer ][0] : 'Unknown Importer';
 
-
 		/**
 		 * Sync Event that tells that the import is finished
 		 *
