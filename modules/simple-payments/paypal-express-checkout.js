@@ -59,10 +59,9 @@ var PaypalExpressCheckout = {
 					buttonId: buttonId,
 					payerId: data.payerID,
 					env: env
-				} ).then( function( payment ) {
+				} ).then( function() {
 					// TODO: handle success, errors, messaging, etc, etc.
 					/* jshint ignore:start */
-					console.log( 'payment: ', payment );
 					alert( 'success!' );
 					/* jshint ignore:end */
 				} );
